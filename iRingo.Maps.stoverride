@@ -1,0 +1,138 @@
+{\rtf1\ansi\ansicpg936\cocoartf2865
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww34020\viewh17960\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 name: "\uc0\u63743  iRingo: \u55357 \u56826 \u65039  \u63743 Maps"\
+desc: |-\
+  \uc0\u33258 \u23450 \u20041  \u63743 Maps app\
+  \uc0\u28155 \u21152 \u22269 \u38469 \u29256 \u21151 \u33021 \
+  \uc0\u33258 \u23450 \u20041 \u26381 \u21153 \u29256 \u26412 \u65288 \u24050 \u21551 \u29992  Apple WGS\u8209 84 \u22352 \u26631 \u65289 \
+openUrl: "http://boxjs.com/#/app/iRingo.Maps"\
+author: |-\
+  VirgilClyne[https://github.com/VirgilClyne]\
+homepage: "https://NSRingo.github.io/guide/GeoServices/maps"\
+icon: "https://developer.apple.com/assets/elements/icons/maps/maps-128x128.png"\
+category: "\uc0\u63743  iRingo"\
+date: "2025-10-27 07:07:29"\
+version: "4.4.0"\
+\
+rules:\
+  # \uc0\u55357 \u56826 \u65039  Amap\u65288 \u20445 \u30041 \u65289 \
+  - DOMAIN-SUFFIX,is.autonavi.com,DIRECT\
+\
+  # \uc0\u55357 \u56826 \u65039  Apple Maps\u65288 \u20445 \u25345 \u30452 \u36830 \u65289 \
+  - DOMAIN,gspe11-2-cn-ssl.ls.apple.com,DIRECT\
+  - DOMAIN,gspe12-cn-ssl.ls.apple.com,DIRECT\
+  - DOMAIN,gspe19-cn-ssl.ls.apple.com,DIRECT\
+  - DOMAIN,gspe19-2-cn-ssl.ls.apple.com,DIRECT\
+  - DOMAIN,gspe79-cn-ssl.ls.apple.com,DIRECT\
+\
+http:\
+  mitm:\
+    - "configuration.ls.apple.com"\
+    - "gspe35-ssl.ls.apple.com"\
+\
+  script:\
+    # \uc0\u55356 \u57101  defaults\
+    - match: ^https?:\\/\\/configuration\\.ls\\.apple\\.com\\/config\\/defaults\
+      name: GeoServices.request\
+      type: request\
+      argument:\
+        GeoManifest.Dynamic.Config.CountryCode: "AUTO"\
+        UrlInfoSet.Dispatcher: "Apple"\
+        UrlInfoSet.Directions: "Apple"\
+        UrlInfoSet.RAP: "Apple"\
+        UrlInfoSet.LocationShift: "Apple"   # \uc0\u55357 \u57314  \u21551 \u29992  Apple WGS\u8209 84 \u22352 \u26631 \
+        TileSet.Earth: "Apple"\
+        TileSet.Roads: "AUTO"\
+        TileSet.Satellite: "HYBRID"\
+        LogLevel: "WARN"\
+\
+    - match: ^https?:\\/\\/configuration\\.ls\\.apple\\.com\\/config\\/defaults\
+      name: GeoServices.response\
+      type: response\
+      require-body: true\
+      argument:\
+        GeoManifest.Dynamic.Config.CountryCode: "AUTO"\
+        UrlInfoSet.Dispatcher: "Apple"\
+        UrlInfoSet.Directions: "Apple"\
+        UrlInfoSet.RAP: "Apple"\
+        UrlInfoSet.LocationShift: "Apple"\
+        TileSet.Earth: "Apple"\
+        TileSet.Roads: "AUTO"\
+        TileSet.Satellite: "HYBRID"\
+        LogLevel: "WARN"\
+\
+    # \uc0\u55356 \u57101  announcements\
+    - match: ^https?:\\/\\/gspe35-ssl\\.ls\\.apple\\.(com|cn)\\/config\\/announcements\
+      name: GeoServices.request\
+      type: request\
+      argument:\
+        GeoManifest.Dynamic.Config.CountryCode: "AUTO"\
+        UrlInfoSet.Dispatcher: "Apple"\
+        UrlInfoSet.Directions: "Apple"\
+        UrlInfoSet.RAP: "Apple"\
+        UrlInfoSet.LocationShift: "Apple"\
+        TileSet.Earth: "Apple"\
+        TileSet.Roads: "AUTO"\
+        TileSet.Satellite: "HYBRID"\
+        LogLevel: "WARN"\
+\
+    - match: ^https?:\\/\\/gspe35-ssl\\.ls\\.apple\\.(com|cn)\\/config\\/announcements\
+      name: GeoServices.response\
+      type: response\
+      require-body: true\
+      binary-mode: true\
+      argument:\
+        GeoManifest.Dynamic.Config.CountryCode: "AUTO"\
+        UrlInfoSet.Dispatcher: "Apple"\
+        UrlInfoSet.Directions: "Apple"\
+        UrlInfoSet.RAP: "Apple"\
+        UrlInfoSet.LocationShift: "Apple"\
+        TileSet.Earth: "Apple"\
+        TileSet.Roads: "AUTO"\
+        TileSet.Satellite: "HYBRID"\
+        LogLevel: "WARN"\
+\
+    # \uc0\u55356 \u57101  geo_manifest\
+    - match: ^https?:\\/\\/gspe35-ssl\\.ls\\.apple\\.(com|cn)\\/geo_manifest\\/dynamic\\/config\
+      name: GeoServices.request\
+      type: request\
+      argument:\
+        GeoManifest.Dynamic.Config.CountryCode: "AUTO"\
+        UrlInfoSet.Dispatcher: "Apple"\
+        UrlInfoSet.Directions: "Apple"\
+        UrlInfoSet.RAP: "Apple"\
+        UrlInfoSet.LocationShift: "Apple"\
+        TileSet.Earth: "Apple"\
+        TileSet.Roads: "AUTO"\
+        TileSet.Satellite: "HYBRID"\
+        LogLevel: "WARN"\
+\
+    - match: ^https?:\\/\\/gspe35-ssl\\.ls\\.apple\\.(com|cn)\\/geo_manifest\\/dynamic\\/config\
+      name: GeoServices.response\
+      type: response\
+      require-body: true\
+      binary-mode: true\
+      argument:\
+        GeoManifest.Dynamic.Config.CountryCode: "AUTO"\
+        UrlInfoSet.Dispatcher: "Apple"\
+        UrlInfoSet.Directions: "Apple"\
+        UrlInfoSet.RAP: "Apple"\
+        UrlInfoSet.LocationShift: "Apple"\
+        TileSet.Earth: "Apple"\
+        TileSet.Roads: "AUTO"\
+        TileSet.Satellite: "HYBRID"\
+        LogLevel: "WARN"\
+\
+script-providers:\
+  GeoServices.request:\
+    url: https://github.com/NSRingo/GeoServices/releases/download/v4.4.0/request.bundle.js\
+    interval: 86400\
+  GeoServices.response:\
+    url: https://github.com/NSRingo/GeoServices/releases/download/v4.4.0/response.bundle.js\
+    interval: 86400\
+}
